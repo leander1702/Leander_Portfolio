@@ -2,36 +2,67 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import {
   BiLogoReact,
-  BiLogoAngular,
-  BiLogoVuejs,
   BiLogoHtml5,
   BiLogoCss3,
   BiLogoJavascript,
   BiLogoNodejs,
   BiLogoMongodb,
   BiLogoTailwindCss,
-  BiLogoBootstrap
+  BiLogoBootstrap,
+  BiLogoGit,
+  BiLogoGithub,
+  BiLogoTypescript
 } from 'react-icons/bi';
-import { SiExpress, SiAwsamplify } from "react-icons/si";
-
+import { SiExpress, SiAwsamplify, SiVercel, SiElectron, SiPostman, SiCanva, SiFigma, SiFirebase } from "react-icons/si";
+import { VscVscode } from "react-icons/vsc";
 const Skills = () => {
-  const technologies = [
-    { name: 'HTML5', icon: BiLogoHtml5, color: 'text-orange-500' },
-    { name: 'CSS3', icon: BiLogoCss3, color: 'text-blue-600' },
-    { name: 'JavaScript', icon: BiLogoJavascript, color: 'text-yellow-400' },
-    { name: 'BootStrap', icon: BiLogoBootstrap, color: 'text-purple-600' },
-    { name: 'React', icon: BiLogoReact, color: 'text-blue-500' },
-    { name: 'Node.js', icon: BiLogoNodejs, color: 'text-green-500' },
-    { name: 'Express', icon: SiExpress, color: 'text-white' },
-    { name: 'MongoDB', icon: BiLogoMongodb, color: 'text-green-600' },
-    { name: 'Tailwind', icon: BiLogoTailwindCss, color: 'text-cyan-400' },
-    { name: 'AWS', icon: SiAwsamplify, color: 'text-orange-500' }
+  const categories = [
+    {
+      title: "Frontend",
+      skills: [
+        { name: 'HTML5', icon: BiLogoHtml5, color: 'text-orange-500' },
+        { name: 'CSS3', icon: BiLogoCss3, color: 'text-blue-600' },
+        { name: 'JavaScript', icon: BiLogoJavascript, color: 'text-yellow-400' },
+        { name: 'TypeScript', icon: BiLogoTypescript, color: 'text-blue-600' },
+        { name: 'React js', icon: BiLogoReact, color: 'text-blue-500' },
+        { name: 'Electron.js', icon: SiElectron, color: 'text-teal-400' },
+        { name: 'Bootstrap', icon: BiLogoBootstrap, color: 'text-purple-600' },
+        { name: 'Tailwind CSS', icon: BiLogoTailwindCss, color: 'text-cyan-400' },
+      ]
+    },
+    {
+      title: "Backend & Database",
+      skills: [
+        { name: 'Node.js', icon: BiLogoNodejs, color: 'text-green-500' },
+        { name: 'Express.js', icon: SiExpress, color: 'text-gray-300' },
+        { name: 'MongoDB', icon: BiLogoMongodb, color: 'text-green-600' },
+        { name: 'Firebase', icon: SiFirebase, color: 'text-amber-500' }
+      ]
+    },
+    {
+      title: "Tools & Technologies",
+      skills: [
+        { name: 'Git', icon: BiLogoGit, color: 'text-orange-600' },
+        { name: 'GitHub', icon: BiLogoGithub, color: 'text-gray-300' },
+        { name: 'AWS', icon: SiAwsamplify, color: 'text-orange-500' },
+        { name: 'Vercel', icon: SiVercel, color: 'text-white' },
+        { name: 'VS Code', icon: VscVscode, color: 'text-blue-500' },
+        { name: 'Postman', icon: SiPostman, color: 'text-orange-500' },
+        { name: 'Canva', icon: SiCanva, color: 'text-blue-400' },
+        { name: 'Figma', icon: SiFigma, color: 'text-purple-500' }
+      ]
+    }
   ];
 
   return (
-    <div className="bg-black py-6 md:py-0">
+    <div className="bg-black py-12 ">     
+     <iframe
+        src="https://lottie.host/embed/e5a10897-6764-4ce4-8d91-7c5ce71659fc/2aCApT2pGp.lottie"
+        className="w-full h-[200px] md:h-[400px] border-0"
+        allowFullScreen
+      ></iframe>
       {/* Heading & description */}
-      <div className="max-w-2xl mx-auto text-center mb-10 px-4">
+      <div className="max-w-2xl mx-auto text-center mb-12 px-4">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white mb-4">
           Tech
           <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
@@ -44,30 +75,46 @@ const Skills = () => {
         </p>
       </div>
 
-      {/* Skills Grid */}
+      {/* Skills Categories - Horizontal Layout */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="space-y-10 sm:space-y-12"
+          className="grid grid-cols-1 lg:grid-cols-1 gap-8"
         >
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 justify-items-center">
-            {technologies.map((tech) => (
-              <motion.div
-                key={tech.name}
-                whileHover={{ scale: 1.1 }}
-                className="flex flex-col items-center gap-2 p-4 sm:p-6 w-full max-w-[220px] rounded-xl 
-                           bg-gray-800/50 border border-gray-700 shadow-md 
-                           backdrop-blur-md text-center"
-              >
-                <tech.icon className={`w-14 h-14 sm:w-16 sm:h-16 ${tech.color}`} />
-                <p className="text-white font-semibold text-sm sm:text-base mt-2">
-                  {tech.name}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+          {categories.map((category, categoryIndex) => (
+            <motion.div
+              key={category.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: categoryIndex * 0.2 }}
+              className="bg-gray-900/50 rounded-2xl p-6 border border-gray-700 backdrop-blur-sm"
+            >
+              <h3 className="text-xl sm:text-2xl font-semibold text-white mb-6 text-center">
+                {category.title}
+              </h3>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {category.skills.map((tech, index) => (
+                  <motion.div
+                    key={tech.name}
+                    whileHover={{ scale: 1.05 }}
+                    className="flex flex-col items-center gap-2 p-4 rounded-xl 
+                               bg-gray-800/30 border border-gray-600 
+                               text-center hover:border-cyan-400/50
+                               transition-all duration-300"
+                  >
+                    <tech.icon className={`w-10 h-10 sm:w-12 sm:h-12 ${tech.color}`} />
+                    <p className="text-white font-medium text-xs sm:text-sm mt-2">
+                      {tech.name}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </div>

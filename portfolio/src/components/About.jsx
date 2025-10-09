@@ -21,92 +21,93 @@ const expertiseData = [
 
 const About = () => {
   return (
-    <div className="min-h-screen p-6 sm:p-8 md:p-16">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen p-4 md:p-16">
+      <div className=" mx-auto">
         {/* Main Title */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white text-center mb-12 sm:mb-16">
-          About <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">Me</span> 
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white text-center  md:mb-16">
+          About <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">Me</span>
         </h1>
 
         {/* Two-Column Layout */}
-        <div className="flex flex-col md:flex-row gap-10 md:gap-12">
-          {/* LEFT COLUMN: Expertise Cards */}
-          <div className="md:w-1/2 space-y-8">
-            <h2 className="text-2xl font-semibold text-blue-400 mb-4">My Core Expertise</h2>
-            {expertiseData.map((item, index) => (
-              <div
-                key={index}
-                className="bg-gray-800 p-5 rounded-xl shadow-lg transition duration-300 hover:bg-gray-700"
-              >
-                <div className="flex items-center space-x-4 mb-2">
-                  <div className="bg-blue-500 p-3 rounded-full flex items-center justify-center">
-                    <item.icon className="text-white font-semibold text-xl" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+        <div class="flex flex-col md:flex-row gap-8 md:gap-12">
+                
+                <div class="md:w-1/2 flex justify-center items-center">
+                    <div class="w-full max-w-md md:max-w-lg">
+                        <iframe
+                            src="https://lottie.host/embed/cafce2d3-6bb7-4dcb-bdc3-8256e99376ac/aQXU2sP2GQ.lottie"
+                            class="w-full h-96 sm:h-80 md:h-[550px] rounded-lg shadow-lg"
+                        ></iframe>
+                    </div>
                 </div>
-                <p className="text-base font-light text-gray-400 ml-2">
-                  {item.projects}
-                </p>
-              </div>
-            ))}
-          </div>
+                
+              
+                <div class="md:w-1/2">
+                  
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold text-blue-400 mb-4 flex items-center">
+                            <i class="fas fa-user mr-2"></i> Who I Am
+                        </h2>
+                        <p class="text-base sm:text-lg text-justify text-gray-300 leading-relaxed">
+                            I am a Frontend developer specializing in building responsive, user-friendly, and visually appealing web applications. Skilled in <span class="text-blue-400 font-semibold">React, JavaScript, and modern web technologies</span>, I focus on turning designs into seamless, high-performance digital experiences that meet both user needs and business goals.
+                        </p>
+                    </div>
+                    
+                  
+                    <div class="border-t border-dashed border-gray-700 my-6"></div>
+                    
+                  
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold text-blue-400 mb-4 flex items-center">
+                            <i class="fas fa-graduation-cap mr-2"></i> Education
+                        </h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                           
+                            <div class="education-card bg-gray-800 p-6 rounded-xl border border-blue-700">
+                                <div class="flex items-start mb-3">
+                                    <i class="fas fa-university text-blue-400 text-xl mr-3 mt-1"></i>
+                                    <div>
+                                        <p class="text-lg font-bold text-white">M.Sc. Computer Science</p>
+                                        <p class="text-sm italic text-gray-400">Bishop Heber College (2021 – 2023)</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-2">
+                                    <i class="fas fa-percentage text-blue-400 mr-2"></i> Percentage: <strong class="font-semibold text-white">75.20%</strong>
+                                </p>
+                            </div>
 
-          {/* RIGHT COLUMN: Summary & Education */}
-          <div className="md:w-2/3">
-            {/* Brief Summary */}
-            <div>
-              <h2 className="text-2xl font-semibold text-blue-400 mb-4">Who I Am</h2>
-              <p className="text-base sm:text-lg text-justify text-white leading-relaxed">
-                I am a Frontend developer specializing in building responsive, user-friendly, and visually appealing web applications. Skilled in <span className="text-blue-400 font-semibold">React, JavaScript, and modern web technologies</span>, I focus on turning designs into seamless, high-performance digital experiences that meet both user needs and business goals.
-              </p>
+                         
+                            <div class="education-card bg-gray-800 p-6 rounded-xl border border-blue-700">
+                                <div class="flex items-start mb-3">
+                                    <i class="fas fa-university text-blue-400 text-xl mr-3 mt-1"></i>
+                                    <div>
+                                        <p class="text-lg font-bold text-white">B.Sc. Computer Science</p>
+                                        <p class="text-sm italic text-gray-400">Bishop Heber College (2018 – 2021)</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-2">
+                                    <i class="fas fa-percentage text-blue-400 mr-2"></i> Percentage: <strong class="font-semibold text-white">75.90%</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="border-t border-dashed border-gray-700 my-6"></div>
+
+                    
+                    <div>
+                        <h2 class="text-2xl font-bold text-blue-400 mb-4 flex items-center">
+                            <i class="fas fa-laptop-code mr-2"></i> Freelance
+                        </h2>
+                        <div class="bg-gray-800 w-fit px-4 py-3 rounded-xl border border-blue-700 flex items-center gap-3 education-card">
+                            <span class="w-3 h-3 bg-green-500 rounded-full pulse-dot"></span>
+                            <p class="text-lg font-bold text-white">
+                                Available for Projects
+                            </p>
+                        </div>                       
+                    </div>
+                </div>
             </div>
-
-            {/* Dotted separator */}
-            <div className="border-t border-dashed border-gray-600 mt-4 pt-2"></div>
-
-            {/* Education Section */}
-            <div className="mt-6">
-              <h2 className="text-2xl font-bold text-blue-400 mb-4">Education</h2>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                {/* M.Sc. Degree */}
-                <div className="bg-gray-800 p-6 rounded-xl border border-blue-700 flex-1">
-                  <p className="text-lg font-bold text-white mb-2">
-                    <span className="text-blue-400">🎓</span> M.Sc. Computer Science
-                  </p>
-                  <p className="text-sm italic text-gray-300">Bishop Heber College (2021 – 2023)</p>
-                  <p className="text-sm text-white mt-2">
-                    <span className="text-blue-400">▪</span> Percentage: <strong className="font-semibold">75.20%</strong>
-                  </p>
-                </div>
-
-                {/* B.Sc. Degree */}
-                <div className="bg-gray-800 p-6 rounded-xl border border-blue-700 flex-1">
-                  <p className="text-lg font-bold text-white mb-2">
-                    <span className="text-blue-400">🎓</span> B.Sc. Computer Science
-                  </p>
-                  <p className="text-sm italic text-gray-300">Bishop Heber College (2018 – 2021)</p>
-                  <p className="text-sm text-white mt-2">
-                    <span className="text-blue-400">▪</span> Percentage: <strong className="font-semibold">75.90%</strong>
-                  </p>
-                </div>
-              </div>
-
-              {/* Dotted separator */}
-              <div className="border-t border-dashed border-gray-600 mt-4 pt-2"></div>
-
-              {/* Freelance Badge */}
-              <h2 className="text-2xl font-bold text-blue-400 mb-4">Freelance</h2>
-              <div className="bg-gray-800 w-fit px-4 py-2 rounded-xl border border-blue-700 flex items-center gap-3">
-                <span className="w-3 h-3 bg-green-600 rounded-full animate-pulse"></span>
-                <p className="text-lg font-bold text-white">
-                  Available
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </div>
       </div>
     </div>
   );

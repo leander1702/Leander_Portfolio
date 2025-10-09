@@ -35,14 +35,14 @@ app.post("/send-email", async (req, res) => {
       service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        pass: process.env.EMAIL_PASS, // app password if using Gmail
       },
     });
 
     // Mail content
     const mailOptions = {
       from: `"${name}" <${email}>`,
-      to: process.env.EMAIL_USER,  // your inbox
+      to: process.env.EMAIL_USER,
       subject: `📩 New Contact Message from ${name}`,
       text: `
 You received a new message from your website contact form:
@@ -54,7 +54,6 @@ ${message}
       `,
     };
 
-    // Send email
     const info = await transporter.sendMail(mailOptions);
     console.log("✅ Email sent:", info.response);
     res.json({ success: true, message: "Email sent successfully!" });
@@ -66,6 +65,9 @@ ${message}
 });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`🚀 Server running on http://localhost:${PORT}`);
+// });
+
+// export default app;
+module.exports = app;

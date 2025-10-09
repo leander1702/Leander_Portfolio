@@ -8,31 +8,31 @@ const Projects = () => {
     {
       title: "Makeup Artist Portfolio",
       description: "A modern and elegant portfolio website for a makeup artist, featuring services, gallery, and contact options to attract clients.",
-      tech: ["React js", "Tailwind CSS"],
-      link: "https://makeup-artist-portfolio-qlm6.vercel.app",
+      tech: ["React js","HTML","JavaScript","Tailwind CSS"],
+      link: "https://makeup-artist-jayashri.vercel.app",
       image: project2
     },
+    // {
+    //   title: "Billing Software",
+    //   description: "Web-based billing application with invoice generation, payment tracking, and reporting features.",
+    //   tech: ["Electron js","React.js", "JavaScript", "HTML5", "CSS3", "Tailwind CSS"],
+    //   link: "https://billing-invoices.vercel.app/#/",
+    //   image: project1
+    // },
     {
-      title: "Billing Software",
-      description: "Web-based billing application with invoice generation, payment tracking, and reporting features.",
-      tech: ["Electron js","React.js", "JavaScript", "HTML5", "CSS3", "Tailwind CSS"],
-      link: "https://billing-invoices.vercel.app/#/",
-      image: project1
-    },
-    {
-      title: "FRF - Fill your Tank and Fix your Vehicle",
+      title: "F&F - Fill your Tank and Fix your Vehicle",
       description: "Web app for on-demand fuel delivery and locating nearby mechanical shops with real-time fuel tracking and quick contact with repair services.",
       tech: ["React js","HTML", "CSS", "JavaScript",  "Google Maps API"],
       link: "#",
       image: project3
     },
-    {
-      title: "Admin Dashboard",
-      description: "Comprehensive admin dashboard for managing users, analytics, and system configurations.",
-      tech: ["React js", "Tailwind CSS", "Node.js", "MongoDB"],
-      link: "#",
-      image: project1
-    },
+    // {
+    //   title: "Admin Dashboard",
+    //   description: "Comprehensive admin dashboard for managing users, analytics, and system configurations.",
+    //   tech: ["React js", "Tailwind CSS", "Node.js", "MongoDB"],
+    //   link: "#",
+    //   image: project1
+    // },
   ];
 
   const ProjectCard = ({ project, index }) => (
@@ -141,7 +141,7 @@ const Projects = () => {
   );
 
   return (
-    <section id="projects" className="min-h-screen px-4 md:px-8 py-12 md:py-20  relative overflow-hidden">
+    <section id="projects" className="min-h-screen md:mt-20 px-4 md:px-8 py-12 md:py-20  relative overflow-hidden">
       {/* Background mesh/blob effect for the section */}
       <div className="absolute inset-0 z-0 opacity-10">
         <div className="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
@@ -154,7 +154,7 @@ const Projects = () => {
         {/* Header */}
         <div className="text-center mb-16 md:mb-20">
           <h2 className="text-4xl md:text-5xl font-semibold mb-4 text-white">
-            My Creative <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Journey</span> 
+            My <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Projects</span> 
           </h2>
           <p className="text-gray-400 text-lg md:text-xl max-w-4xl mx-auto">
             Explore a collection of projects that define my passion for crafting innovative web experiences.

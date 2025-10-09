@@ -7,8 +7,8 @@ const Header = () => {
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'skills', label: 'Skills' },
-    { id: 'projects', label: 'Projects' },
     { id: 'experience', label: 'Experience' },
+    { id: 'projects', label: 'Projects' },
     { id: 'contact', label: 'Contact' },
   ];
 
@@ -67,9 +67,8 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`lg:hidden transition-all duration-300 ease-in-out ${
-          isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        } overflow-hidden bg-white/5 backdrop-blur-xl border-t border-white/10`}>
+        <div className={`lg:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          } overflow-hidden bg-white/5 backdrop-blur-xl border-t border-white/10`}>
           <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             {navItems.map(item => (
               <button
@@ -86,7 +85,7 @@ const Header = () => {
 
       {/* Overlay for mobile menu */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="lg:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-40 mt-20"
           onClick={() => setIsMobileMenuOpen(false)}
         />

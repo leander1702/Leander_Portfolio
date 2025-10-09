@@ -29,7 +29,7 @@ const Experience = () => {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-gray-950 to-black py-6 md:py-0 px-4 sm:px-2">
+    <div className="md:mt-20 py-6 md:py-0 px-4 sm:px-2">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="text-center mb-4 sm:mb-16">
