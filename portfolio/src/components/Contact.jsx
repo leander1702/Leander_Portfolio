@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { FaLinkedin, FaGithub, FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaInstagramSquare } from 'react-icons/fa'
-
+import axios from 'axios';
 const Contact = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
@@ -37,69 +37,65 @@ const Contact = () => {
     if (submitError) setSubmitError('')
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setSubmitError('')
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setSubmitError('');
 
-    try {
-      const response = await fetch('https://leander-portfolio-seven.vercel.app/send-email', {
-        method: 'POST',
+  try {
+    const response = await axios.post(
+      'https://leander-portfolio-seven.vercel.app/send-email',
+      formData,
+      {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
-        mode: 'cors' // ✅ add this
-      });
-
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to send message')
       }
+    );
 
-      if (data.success) {
-        console.log('✅ Email sent successfully:', data)
+    const data = response.data;
 
-        // Store form data in localStorage as backup
-        const formSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]')
-        const newSubmission = {
-          ...formData,
-          timestamp: new Date().toISOString(),
-          status: 'sent'
-        }
-        formSubmissions.push(newSubmission)
-        localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions))
-
-        setIsSubmitted(true)
-        setFormData({ name: '', email: '', message: '' })
-
-        // Reset submission status after 5 seconds
-        setTimeout(() => {
-          setIsSubmitted(false)
-        }, 5000)
-      } else {
-        throw new Error(data.error || 'Failed to send message')
-      }
-    } catch (error) {
-      console.error('❌ Error sending email:', error)
-      setSubmitError(error.message || 'Failed to send message. Please try again.')
-
-      // Store failed submission in localStorage
-      const formSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]')
-      const newSubmission = {
-        ...formData,
-        timestamp: new Date().toISOString(),
-        status: 'failed',
-        error: error.message
-      }
-      formSubmissions.push(newSubmission)
-      localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions))
-    } finally {
-      setIsLoading(false)
+    if (!response.status || data.success !== true) {
+      throw new Error(data.error || 'Failed to send message');
     }
+
+    console.log('✅ Email sent successfully:', data);
+
+    // Store form data in localStorage as backup
+    const formSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+    const newSubmission = {
+      ...formData,
+      timestamp: new Date().toISOString(),
+      status: 'sent',
+    };
+    formSubmissions.push(newSubmission);
+    localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions));
+
+    setIsSubmitted(true);
+    setFormData({ name: '', email: '', message: '' });
+
+    // Reset submission status after 5 seconds
+    setTimeout(() => {
+      setIsSubmitted(false);
+    }, 5000);
+  } catch (error) {
+    console.error('❌ Error sending email:', error);
+    setSubmitError(error.response?.data?.error || error.message || 'Failed to send message. Please try again.');
+
+    // Store failed submission in localStorage
+    const formSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+    const newSubmission = {
+      ...formData,
+      timestamp: new Date().toISOString(),
+      status: 'failed',
+      error: error.response?.data?.error || error.message,
+    };
+    formSubmissions.push(newSubmission);
+    localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions));
+  } finally {
+    setIsLoading(false);
   }
+};
 
   return (
     <section id="contact" className="min-h-screen  relative">
