@@ -7,95 +7,64 @@ const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [submitError, setSubmitError] = useState('')
+  const API_BASE_URL = "https://leander-portfolio-seven.vercel.app";
+  // ✅ Backend URL from environment variable
+ 
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
+        if (entry.isIntersecting) setIsVisible(true)
       },
       { threshold: 0.2 }
     )
-
     const footerSection = document.getElementById('contact')
-    if (footerSection) {
-      observer.observe(footerSection)
-    }
-
-    return () => {
-      if (footerSection) {
-        observer.unobserve(footerSection)
-      }
-    }
+    if (footerSection) observer.observe(footerSection)
+    return () => footerSection && observer.unobserve(footerSection)
   }, [])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
-    // Clear error when user starts typing
     if (submitError) setSubmitError('')
   }
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setIsLoading(true);
-  setSubmitError('');
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsLoading(true)
+    setSubmitError('')
 
-  try {
-    const response = await axios.post(
-      'https://leander-portfolio-seven.vercel.app/send-email',
-      formData,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    try {
+      const response = await fetch(`${API_BASE_URL}/send-email`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
 
-    const data = response.data;
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error || 'Failed to send message')
 
-    if (!response.status || data.success !== true) {
-      throw new Error(data.error || 'Failed to send message');
+      // Save successful submission in localStorage
+      const submissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]')
+      submissions.push({ ...formData, timestamp: new Date().toISOString(), status: 'sent' })
+      localStorage.setItem('formSubmissions', JSON.stringify(submissions))
+
+      setIsSubmitted(true)
+      setFormData({ name: '', email: '', message: '' })
+      setTimeout(() => setIsSubmitted(false), 5000)
+
+    } catch (error) {
+      console.error('❌ Error sending email:', error)
+      setSubmitError(error.message || 'Failed to send message')
+
+      // Save failed submission in localStorage
+      const submissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]')
+      submissions.push({ ...formData, timestamp: new Date().toISOString(), status: 'failed', error: error.message })
+      localStorage.setItem('formSubmissions', JSON.stringify(submissions))
+    } finally {
+      setIsLoading(false)
     }
-
-    console.log('✅ Email sent successfully:', data);
-
-    // Store form data in localStorage as backup
-    const formSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
-    const newSubmission = {
-      ...formData,
-      timestamp: new Date().toISOString(),
-      status: 'sent',
-    };
-    formSubmissions.push(newSubmission);
-    localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions));
-
-    setIsSubmitted(true);
-    setFormData({ name: '', email: '', message: '' });
-
-    // Reset submission status after 5 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-    }, 5000);
-  } catch (error) {
-    console.error('❌ Error sending email:', error);
-    setSubmitError(error.response?.data?.error || error.message || 'Failed to send message. Please try again.');
-
-    // Store failed submission in localStorage
-    const formSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
-    const newSubmission = {
-      ...formData,
-      timestamp: new Date().toISOString(),
-      status: 'failed',
-      error: error.response?.data?.error || error.message,
-    };
-    formSubmissions.push(newSubmission);
-    localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions));
-  } finally {
-    setIsLoading(false);
   }
-};
 
   return (
     <section id="contact" className="min-h-screen  relative">
@@ -312,7 +281,7 @@ const handleSubmit = async (e) => {
             </div>
           </div>
         </div>
-       
+
       </div>
 
       {/* Ripple effect styles */}
@@ -333,11 +302,11 @@ const handleSubmit = async (e) => {
     }
   `}
       </style>
-       <div className="border-t border-gray-700 mt-32 text-center ">
-          <p  className="text-gray-400 pt-3">
-            © {new Date().getFullYear()} LeanderXavier. All rights reserved.
-          </p>
-        </div>
+      <div className="border-t border-gray-700 mt-32 text-center ">
+        <p className="text-gray-400 pt-3">
+          © {new Date().getFullYear()} LeanderXavier. All rights reserved.
+        </p>
+      </div>
     </section>
   );
 };
