@@ -67,8 +67,10 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`lg:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-          } overflow-hidden bg-white/5 backdrop-blur-xl border-t border-white/10`}>
+        <div
+          className={`lg:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+            } overflow-hidden bg-white/5 backdrop-blur-xl border-t border-white/10`}
+        >
           <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             {navItems.map(item => (
               <button
