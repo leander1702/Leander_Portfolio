@@ -68,7 +68,7 @@ const Projects = () => {
 
         {/* Tech Stack Badge (Top Left) */}
         <div className="absolute top-4 left-4 z-20">
-          <span className="px-3 py-1 bg-black/80 text-cyan-400 rounded-full text-sm font-medium border border-cyan-500/50 shadow-md shadow-cyan-500/10">
+          <span className="px-3 py-1 bg-black/80 text-blue-400 rounded-full text-sm font-medium border border-cyan-500/50 shadow-md shadow-cyan-500/10">
             {project.tech[0]}
           </span>
         </div>
@@ -181,7 +181,9 @@ const Projects = () => {
             focus:outline-none focus:ring-4 focus:ring-cyan-500/50
             text-lg
           ">
+            <a href="https://github.com/leander1702" target="_blank" rel="noopener noreferrer">
             Explore Git
+            </a>
           </button>
         </div>
       </div>

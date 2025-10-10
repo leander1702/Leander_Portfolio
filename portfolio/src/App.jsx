@@ -35,7 +35,7 @@ function App() {
       <section id="projects" className="min-h-screen flex items-center justify-center">
         <Projects />
       </section>
-      <section id="contact" className="min-h-screen flex items-center justify-center">
+      <section id="contact" className="flex items-center justify-center">
         <Contact />
       </section>
     </div>

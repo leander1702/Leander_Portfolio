@@ -140,9 +140,10 @@ const Home = () => {
                     </svg>
                   </div>
                   <div className="absolute w-full h-full bg-gray-900 -z-10 rounded-lg pointer-events-none transition-all duration-300 group-hover:rotate-12 group-hover:origin-bottom"></div>
-                </a>
+                </a>               
               </div>
             </div>
+          
           </div>
 
           {/* 🌐 Right Section (Image with Floating Icons) */}
@@ -177,7 +178,7 @@ const Home = () => {
             <img
               src={ProfileCard}
               alt="Profile"
-              className="w-3/4 sm:w-1/2 md:w-3/4 lg:w-6/12 mb-3 md:mr-40 md:mb-0 -mt-32 md:-mt-52 animate-float relative z-10"
+              className="w-3/4 sm:w-1/2 md:w-3/4 lg:w-6/12 mb-3 md:mr-20 md:mb-0 -mt-32 md:-mt-52 animate-float relative z-10"
             />
           </div>
         </div>

@@ -37,65 +37,65 @@ const Contact = () => {
     if (submitError) setSubmitError('')
   }
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setIsLoading(true);
-  setSubmitError('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setSubmitError('');
 
-  try {
-    const response = await axios.post(
-      'https://portfolio-backend-plum-iota.vercel.app/send-email',
-      formData,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    try {
+      const response = await axios.post(
+        'https://portfolio-backend-plum-iota.vercel.app/send-email',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const data = response.data;
+
+      if (!response.status || data.success !== true) {
+        throw new Error(data.error || 'Failed to send message');
       }
-    );
 
-    const data = response.data;
+      console.log('✅ Email sent successfully:', data);
 
-    if (!response.status || data.success !== true) {
-      throw new Error(data.error || 'Failed to send message');
+      // Store form data in localStorage as backup
+      const formSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+      const newSubmission = {
+        ...formData,
+        timestamp: new Date().toISOString(),
+        status: 'sent',
+      };
+      formSubmissions.push(newSubmission);
+      localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions));
+
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', message: '' });
+
+      // Reset submission status after 5 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 5000);
+    } catch (error) {
+      console.error('❌ Error sending email:', error);
+      setSubmitError(error.response?.data?.error || error.message || 'Failed to send message. Please try again.');
+
+      // Store failed submission in localStorage
+      const formSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+      const newSubmission = {
+        ...formData,
+        timestamp: new Date().toISOString(),
+        status: 'failed',
+        error: error.response?.data?.error || error.message,
+      };
+      formSubmissions.push(newSubmission);
+      localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions));
+    } finally {
+      setIsLoading(false);
     }
-
-    console.log('✅ Email sent successfully:', data);
-
-    // Store form data in localStorage as backup
-    const formSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
-    const newSubmission = {
-      ...formData,
-      timestamp: new Date().toISOString(),
-      status: 'sent',
-    };
-    formSubmissions.push(newSubmission);
-    localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions));
-
-    setIsSubmitted(true);
-    setFormData({ name: '', email: '', message: '' });
-
-    // Reset submission status after 5 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-    }, 5000);
-  } catch (error) {
-    console.error('❌ Error sending email:', error);
-    setSubmitError(error.response?.data?.error || error.message || 'Failed to send message. Please try again.');
-
-    // Store failed submission in localStorage
-    const formSubmissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
-    const newSubmission = {
-      ...formData,
-      timestamp: new Date().toISOString(),
-      status: 'failed',
-      error: error.response?.data?.error || error.message,
-    };
-    formSubmissions.push(newSubmission);
-    localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions));
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
 
   return (
     <section id="contact" className="min-h-screen  relative">
@@ -291,28 +291,45 @@ const handleSubmit = async (e) => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-lg font-medium hover:from-blue-700 hover:to-cyan-600 transition-all duration-300 shadow-lg shadow-blue-500/20 relative overflow-hidden"
+                  className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-lg font-medium hover:from-blue-700 hover:to-cyan-600 transition-all duration-300 shadow-lg shadow-blue-500/20 flex items-center justify-center space-x-2"
                 >
                   {isLoading ? (
                     <>
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      <span>Sending...</span>
+                      <svg
+                        className="animate-spin h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
                       </svg>
-                      Sending...
                     </>
                   ) : (
                     <>
-                      Send Message
-                      <FaPaperPlane className="ml-2" />
+                      <span>Send Message</span>
+                      <FaPaperPlane />
                     </>
                   )}
                 </button>
+
               </form>
             </div>
           </div>
         </div>
-       
+
       </div>
 
       {/* Ripple effect styles */}
@@ -333,11 +350,11 @@ const handleSubmit = async (e) => {
     }
   `}
       </style>
-       <div className="border-t border-gray-700 mt-32 text-center ">
-          <p  className="text-gray-400 pt-3">
-            © {new Date().getFullYear()} LeanderXavier. All rights reserved.
-          </p>
-        </div>
+      <div className="border-t border-gray-700 mt-32 text-center ">
+        <p className="text-gray-400 pt-10">
+          © {new Date().getFullYear()} LeanderXavier. All rights reserved.
+        </p>
+      </div>
     </section>
   );
 };
