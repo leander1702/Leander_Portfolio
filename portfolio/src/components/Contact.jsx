@@ -44,7 +44,7 @@ const handleSubmit = async (e) => {
 
   try {
     const response = await axios.post(
-      'http://localhost:5000/send-email',
+      'https://portfolio-backend-plum-iota.vercel.app/send-email',
       formData,
       {
         headers: {
